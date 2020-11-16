@@ -1,0 +1,9 @@
+<strong>My Friends</strong>
+<div class="friendsflex">
+    <% for(friend of friends){ %>
+        <% if(friend.id == user.id) { %>
+            <% continue; %>
+        <% } %>
+        <div><small><a href="/Detailprofile/?id=<%= friend.id %>"><%= friend.name %></a></small></div>
+    <% } %>    
+</div>

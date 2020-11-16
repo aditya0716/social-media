@@ -1,0 +1,75 @@
+<h1>Profile</h1>
+<div class="container" id="modalClass">
+
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="input-group mb-3 jumbotron bg-secondary">
+            <p class="lead">Upload New Profile Picture</p>
+            <form action="/update/?id=<%= locals.user.id%>" method="POST" enctype="multipart/form-data">
+                <input id="uploadImage" type="file" class="form-control" name="avatar">
+                <img id="uploadPreview" style="width: 100px; height: 100px;" />
+                <button type="submit" class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-success" id="hideContent">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="enclosing">
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <h4>Your Posts</h4>
+                <div class="jumbotron jumbotron-fluid" id="postsContainer">
+                    <div class="container">
+                        <% for(let p of post) { %>
+                        <div class="flex-c">
+                            <div class="flexr">
+                                <div>
+                                    <h5><%= locals.user.name %></h5>
+                                </div>
+                                <div><small><%= p.updatedAt.toISOString().substring(0,10) %></small></div>
+                            </div>
+                            <div class="jumbotron flexr colorStyle">
+                                <%=  p.content %>
+                                <% if(locals.user && locals.user.id == p.user) {%>
+                                <div>
+                                    <a class="deletepost" href="/posts/delete/?id=<%= p.id%>"><i
+                                            class="far fa-trash-alt"></i></a>
+                                </div>
+                                <% } %>
+
+                            </div>
+                        </div>
+                        <form action="/showComments" method="POST">
+                            <input type="hidden" name="post" value="<%= p.id %>">
+                            <input type="submit" value="Show Comments" id="showComments">
+                        </form>
+                        <div id="hrlength"></div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 profileCard">
+                <div class="jumbotron jumbotron-fluid ">
+                    <h1 class="display-4">Profile Information</h1>
+                    <div id="dpimage">
+                        <div class="image-cointainer">
+                            <%if(locals.user.avatar){%>
+                            <img src=<%=locals.user.avatar%> alt="Display Picture">
+                            <%}else{%>
+                            <img src="avatardefault.png" alt="Display Picture">
+                            <%}%>
+                        <div id="ChangeDp"><i class="fas fa-camera"></i></div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <h1 class="display-4"><%= locals.user.name %></h1>
+                            <h3 class="display-6"><%=locals.user.email%></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>

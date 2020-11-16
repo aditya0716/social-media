@@ -1,0 +1,26 @@
+<div class="flex-r">
+   <div> <h1>Codeial</h1></div>
+    <div class="flex-r widthmain">
+        <% if(locals.user){ %>
+        <span><i class="fas fa-user-alt"></i>&nbsp&nbsp&nbsp<%=user.name%></span>
+            <% if(title== 'Codeial | Home' ){ %>
+                <span><a href="/profile">Go to Your Profile</a></span>
+            <% } else { %>
+                <span><a href="/">Home</a></span>
+            <% } %>
+        <span><a href="/signout">SignOut</a></span>
+        <% } else{ %>
+            <% if(title== 'Codeial | User-SignIn' ){ %>
+                <span><a href="/signup">Sign up</a></span>
+                <span><a href="/">Home</a></span>
+            <% } else { %>
+                <span><a href="/signin">Sign In</a></span>
+                <% if(title== 'Codeial | Home' ){ %>
+                    <span><a href="/signup">Sign up</a></span>
+                <% } else { %>
+                    <span><a href="/">Home</a></span>
+                <% } %>
+            <% } %>
+        <% } %>
+    </div>
+</div>

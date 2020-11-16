@@ -1,0 +1,18 @@
+const express=require('express');
+const router=express.Router();
+const userController=require('../controllers/userController');
+const postsController=require('../controllers/postController');
+const commentController=require('../controllers/commentController');
+const passport=require('passport');
+router.get('/',userController.homepage);
+router.get('/profile',passport.checkAuthentication,userController.profile);
+router.use('/signin',require('./signin'));
+router.use('/signup',require('./signup'));
+router.use('/posts',require('./posts'));
+router.use('/api',require('./api'));
+router.post('/showComments',commentController.showComments);
+router.get('/feed',postsController.viewFeed);
+router.post('/update',userController.updateProfile);
+router.get('/Detailprofile',postsController.detailProfile);
+router.get('/signout',userController.signout);
+module.exports=router;

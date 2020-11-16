@@ -1,0 +1,35 @@
+<h1> Codeial Home </h1>
+<div class="enclosing">
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="jumbotron jumbotron-fluid" style="background-color: #181715;">
+                    <p class="lead">What's On Your Mind ?</p>
+                    <hr class="my-4">
+                    <form action="/posts" method="POST">
+                        <div class="form-group">
+                            <textarea type="text" name="content" class="form-control" aria-describedby="emailHelp"
+                                required></textarea>
+                            <small id="emailHelp" class="form-text text-muted">Enter your Thoughts !</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </form>
+
+                </div>
+                <a class="btn btn-primary btn-lg" id="btn" role="button" href="/feed">Check Your Feed</a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+</div>
+
+<%- include('chat'); %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+<script src="chat.js"></script>
+<%if(locals.user) {%>
+<script>
+    new chatBox('chatBoxContainerid', "<%=locals.user.email %>")
+</script>
+<%}%>

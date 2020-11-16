@@ -1,0 +1,63 @@
+<h1>Posts Page</h1>
+<div class="enclosing">
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <h4>Post</h4>
+                <div class="jumbotron jumbotron-fluid" id="postsContainer">
+                    <div class="container">
+                        <div class="flex-c">
+                                <div class="flexr">
+                                    <div><h5><%= posts.user.name %></h5></div>
+                                    <div><small><%= posts.createdAt.toISOString().substring(0,10) %></small></div>
+                                </div>
+                                <div class="flexr jumbotron colorStyle">
+                                    <%=  posts.content %>
+                                    <% if(locals.user && locals.user.id == posts.user.id) {%>
+                                        <div>
+                                            <a href="/posts/delete/?id=<%= posts.id%>"><i class="far fa-trash-alt"></i></a>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <div id="hrlength"></div>
+                        </div>
+                    </div>
+                    <h4>Comments</h4>
+                    <div class="container" id="CommentContainer">
+                        <% for(comment of posts.comment) {%>
+                            <div class="flex-c">
+                                <div class="flexr">
+                                    <div><h5><%= comment.user.name %></h5></div>
+                                    <div><small><%= comment.updatedAt.toISOString().substring(0,10) %></small></div>
+                                </div>
+                                <div class="flexr jumbotron colorStyle">
+                                    <%= comment.content %>
+                                    <% if(locals.user && locals.user.id == comment.user.id)  {%>
+                                        <div>
+                                            <a href="/posts/deleteComment/?id=<%= comment.id%>"><i class="far fa-trash-alt"></i></a>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div id="hrlength"></div>
+                       <% } %>   
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <%- include('comment',{post:posts}); %>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            </div>
+    </div>
+        
+    </div>  
+</div>
+<script src="ajaxFormRequest.js"></script>

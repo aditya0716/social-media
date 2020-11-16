@@ -1,0 +1,56 @@
+<h1>Daily Feed Pages</h1>
+<div class="enclosing">
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <h4>Your Feed</h4>
+                <div class="jumbotron jumbotron-fluid" id="postsContainer">
+                    <div class="container" id="feedContainer">
+                        <% for(let p of post ) { %>
+                            <div class="flex-c">
+                                <div class="flexr">
+                                    <div><h5><%= p.user.name %></h5></div>
+                                    <div><small><%= p.updatedAt.toISOString().substring(0,10) %></small></div>
+                                </div>
+                                <div class="jumbotron flexr colorStyle">
+                                    <%=  p.content %>
+                                    <% if(locals.user && locals.user.id == p.user.id) {%>
+                                        <div>
+                                            <a class="deletepost" href="/posts/delete/?id=<%= p.id%>"><i class="far fa-trash-alt"></i></a>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="/posts/likes/?id=<%= p.id%>&type=posts" class="likesButton" data-likeCount="<%=p.like.length %>"><i class="fas fa-thumbs-up"></i><%=p.like.length%> Likes</a>
+                            </div>
+                            <form action="/showComments" method="POST">
+                                <input type="hidden" name="post" value="<%= p.id %>">
+                                <input  type="submit" value="Show Comments" id="showComments">
+                            </form> 
+                            <div id="hrlength"></div>
+                        <% } %>
+                    </div>
+                </div>
+                <div>
+                    <form action="/posts" method="POST" id="feedFormPost">
+                        <div class="form-group">
+                          <input type="text" name="content" class="form-control"  aria-describedby="emailHelp" required></input>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                      </form>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>  
+</div>
+
+<div class="friendsflex">
+    <div class="jumbotron colorStyle friendsStyle">
+        <%- include('friend',{friends:users}); %>
+    </div>
+</div>
+<script src="ajaxFormRequest.js"></script>

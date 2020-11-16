@@ -1,0 +1,10 @@
+
+<form action="/posts/create-comment" method="POST" id="newCommentController">
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" class="form-control" placeholder="Leave your thoughts here..." name="content">
+        <input type="hidden" class="form-control"  name="post" value="<%= post._id %>">
+        <div class="input-group-append">
+        <button class="btn btn-success" type="submit">Comment</button>
+        </div>
+      </div>
+</form>
